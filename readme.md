@@ -66,7 +66,7 @@ Which makes using that a lot easier
 
 ```ts
 const { job } = await getJobByUuid({ uuid: '__uuid__' });
-// ...do amazing things with job
+// ...do amazing things with result...
 ```
 
 ### namespace
@@ -76,18 +76,73 @@ You may also want to build a full representation of some lambda service under a 
 ```ts
 export const svcJobs = {
   getJobByUuid,
-  // other methods...
+  // ...other methods...
 };
 ```
 
-To add extra context about "where" getJobByUuid is coming from
+This adds extra context about "where" the methods lambdas invoking is coming from
 
 ```ts
 import { svcJobs } from '../path/to/client';
 
 const { job } = await svcJobs.getJobByUuid({ uuid: '__uuid__' });
-// ...do amazing things with job
+// ...do amazing things with result...
 ```
+
+# features
+
+### errors
+
+When this library detects that the lambda you called has thrown an error, it automatically parses it and throws an error of class `LambdaInvocationError`
+
+For example
+```ts
+import { invokeLambdaFunction, LambdaInvocationError } from 'simple-lambda-client';
+
+try {
+  await invokeLambdaFunction({
+    service: 'svc-does-not-exist', // 👈 assume this will cause an error
+    function: 'doAwesomeThing',
+    stage: 'dev',
+    event: {},
+  });
+} catch (error) {
+  expect(error).toBeInstanceOf(LambdaInvocationError) // 👈 error will be an instance of this class
+}
+```
+
+### logging
+
+When given a `logDebug` method, this library emits input and output logs with best practices, to make debugging a breeze.
+
+For example
+```ts
+await invokeLambdaFunction({
+  service: 'svc-oceans',
+  function: 'cleanup',
+  stage: 'dev',
+  event: {},
+  logDebug: console.log, // 👈 will now emit logs to the console
+});
+```
+
+### caching
+
+When given a `cache` instance, this library will wrap the lambda invocation [with-simple-caching](https://github.com/ehmpathy/with-simple-caching)
+
+For example
+```ts
+import { createCache } from 'simple-im-memory-cache';
+
+await invokeLambdaFunction({
+  service: 'svc-oceans',
+  function: 'cleanup',
+  stage: 'dev',
+  event: {},
+  cache: createCache(), // 👈 will now cache the response, with a key of [service, function, stage, event]
+});
+```
+
 
 # tips
 
