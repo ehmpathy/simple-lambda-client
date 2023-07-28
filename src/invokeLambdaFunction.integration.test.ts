@@ -14,7 +14,12 @@ const stage = process.env.EXECUTE_STAGE as string;
 
 describe('createLambdaServiceClient', () => {
   testIfNotCicd('should be able to call service and get response', async () => {
-    const result = await invokeLambdaFunction({ service: serviceName, stage, function: functionName, event: JSON.parse(testPayload) });
+    const result = await invokeLambdaFunction({
+      service: serviceName,
+      stage,
+      function: functionName,
+      event: JSON.parse(testPayload),
+    });
     expect(result).toEqual({ job: null });
   });
 });

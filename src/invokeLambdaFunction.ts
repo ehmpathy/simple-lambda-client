@@ -14,8 +14,17 @@ export const invokeLambdaFunction = async <O = any, I = any>({
   event: I;
   logDebug?: LogMethod;
 }): Promise<O> => {
-  if (logDebug) logDebug(`${serviceName}-${stage}-${functionName}.invoke.input`, { event });
-  const result = await executeLambdaInvocation({ serviceName, stage, functionName, event });
-  if (logDebug) logDebug(`${serviceName}-${stage}-${functionName}.invoke.output`, { result });
+  if (logDebug)
+    logDebug(`${serviceName}-${stage}-${functionName}.invoke.input`, { event });
+  const result = await executeLambdaInvocation({
+    serviceName,
+    stage,
+    functionName,
+    event,
+  });
+  if (logDebug)
+    logDebug(`${serviceName}-${stage}-${functionName}.invoke.output`, {
+      result,
+    });
   return result;
 };

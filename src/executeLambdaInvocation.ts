@@ -1,4 +1,5 @@
 import { Lambda } from 'aws-sdk';
+
 import { UnsuccessfulStatusCodeError, LambdaInvocationError } from './errors';
 
 const lambda = new Lambda();
@@ -23,7 +24,11 @@ export const executeLambdaInvocation = async ({
       Payload: JSON.stringify(event),
     })
     .promise();
-  if (response.StatusCode !== 200) throw new UnsuccessfulStatusCodeError({ code: response.StatusCode, payload: response.Payload });
+  if (response.StatusCode !== 200)
+    throw new UnsuccessfulStatusCodeError({
+      code: response.StatusCode,
+      payload: response.Payload,
+    });
 
   // 2. attempt to parse the response into object
   let payload;
@@ -41,7 +46,12 @@ export const executeLambdaInvocation = async ({
       payload.errorMessage ||
       payload.errorType ||
       payload.stackTrace);
-  if (isAnErrorPayload) throw new LambdaInvocationError({ response: payload, lambda: lambdaName, event });
+  if (isAnErrorPayload)
+    throw new LambdaInvocationError({
+      response: payload,
+      lambda: lambdaName,
+      event,
+    });
 
   // 4. return the payload
   return payload;
