@@ -40,4 +40,18 @@ describe('createLambdaServiceClient', () => {
       { result: undefined },
     );
   });
+  it('should use the cache if passed in', async () => {
+    const cacheGetMock = jest.fn();
+    const cacheSetMock = jest.fn();
+    const exampleEvent = '__EVENT__';
+    await invokeLambdaFunction({
+      service: 'svc-awesome',
+      function: 'doCoolThing',
+      stage: 'prod',
+      event: exampleEvent,
+      cache: { get: cacheGetMock, set: cacheSetMock },
+    });
+    expect(cacheGetMock).toHaveBeenCalledTimes(1);
+    expect(cacheSetMock).toHaveBeenCalledTimes(1);
+  });
 });
