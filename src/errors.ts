@@ -30,7 +30,15 @@ export class LambdaInvocationError extends Error {
    */
   public event: any;
 
-  constructor({ lambda, response, event }: { lambda: string; response: any; event: any }) {
+  constructor({
+    lambda,
+    response,
+    event,
+  }: {
+    lambda: string;
+    response: any;
+    event: any;
+  }) {
     const message = `An error was returned as the lambda invocation response for the lambda '${lambda}': "${response.errorMessage}". See error properties for more details.`;
     super(message);
     this.lambda = lambda;

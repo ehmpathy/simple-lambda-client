@@ -1,5 +1,6 @@
 import { Lambda } from 'aws-sdk';
 
+import { LambdaInvocationError } from './errors';
 import { executeLambdaInvocation } from './executeLambdaInvocation';
 
 /*
@@ -24,7 +25,10 @@ jest.mock('aws-sdk', () => {
 });
 const invokeMock = new Lambda().invoke as jest.Mock;
 const invokePromiseMock = new Lambda().invoke().promise as jest.Mock;
-invokePromiseMock.mockResolvedValue({ StatusCode: 200, Payload: '{"awesome":"response"}' });
+invokePromiseMock.mockResolvedValue({
+  StatusCode: 200,
+  Payload: '{"awesome":"response"}',
+});
 
 describe('execute', () => {
   beforeEach(() => jest.clearAllMocks());
@@ -52,6 +56,7 @@ describe('execute', () => {
       });
       throw new Error('should not reach here');
     } catch (error) {
+      if (!(error instanceof Error)) throw error;
       expect(error.constructor.name).toEqual('UnsuccessfulStatusCodeError');
     }
   });
@@ -72,7 +77,10 @@ describe('execute', () => {
         'Object.<anonymous> (/var/task/dist/handlers/recordNewIdea.js:26:53)',
       ],
     };
-    invokePromiseMock.mockResolvedValue({ StatusCode: 200, Payload: JSON.stringify(errorResponse) });
+    invokePromiseMock.mockResolvedValue({
+      StatusCode: 200,
+      Payload: JSON.stringify(errorResponse),
+    });
     try {
       await executeLambdaInvocation({
         serviceName: 'your-very-awesome-service',
@@ -82,6 +90,7 @@ describe('execute', () => {
       });
       throw new Error('should not reach here');
     } catch (error) {
+      if (!(error instanceof LambdaInvocationError)) throw error;
       expect(error).toHaveProperty('event');
       expect(error).toHaveProperty('lambda');
       expect(error).toHaveProperty('response');
@@ -90,7 +99,9 @@ describe('execute', () => {
       );
       expect(error.event).toEqual({ test: 'payload' });
       expect(error.response).toEqual(errorResponse);
-      expect(error.lambda).toEqual('your-very-awesome-service-dev-doAwesomeThing');
+      expect(error.lambda).toEqual(
+        'your-very-awesome-service-dev-doAwesomeThing',
+      );
     }
   });
   it('should be able to handle a `null` response', async () => {

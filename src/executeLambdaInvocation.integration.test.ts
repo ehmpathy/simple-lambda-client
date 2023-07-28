@@ -13,13 +13,16 @@ const functionName = process.env.EXECUTE_FUNCTION_NAME as string;
 const stage = process.env.EXECUTE_STAGE as string;
 
 describe('execute', () => {
-  testIfNotCicd('should be able to execute a call to invoke a lambda', async () => {
-    const result = await executeLambdaInvocation({
-      serviceName,
-      stage,
-      functionName,
-      event: JSON.parse(testPayload),
-    });
-    expect(result).toEqual({ job: null });
-  });
+  testIfNotCicd(
+    'should be able to execute a call to invoke a lambda',
+    async () => {
+      const result = await executeLambdaInvocation({
+        serviceName,
+        stage,
+        functionName,
+        event: JSON.parse(testPayload),
+      });
+      expect(result).toEqual({ job: null });
+    },
+  );
 });
