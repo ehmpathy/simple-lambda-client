@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.3](https://github.com/ehmpathy/simple-lambda-client/compare/v2.2.2...v2.2.3) (2023-08-01)
+
+
+### Bug Fixes
+
+* **logs:** only log when executing lambda, not on cache hit ([a4698d9](https://github.com/ehmpathy/simple-lambda-client/commit/a4698d9298fde0c195f932ff6e681791c0d18c4b))
+
 ## [2.2.2](https://github.com/ehmpathy/simple-lambda-client/compare/v2.2.1...v2.2.2) (2023-08-01)
 
 
