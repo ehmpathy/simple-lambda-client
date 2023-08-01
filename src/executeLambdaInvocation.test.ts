@@ -114,4 +114,24 @@ describe('execute', () => {
     });
     expect(response).toEqual(null);
   });
+  it('should call logDebug if passed in', async () => {
+    const logDebugMock = jest.fn();
+    const exampleEvent = '__EVENT__';
+    await executeLambdaInvocation({
+      serviceName: 'svc-awesome',
+      functionName: 'doCoolThing',
+      stage: 'prod',
+      event: exampleEvent,
+      logDebug: logDebugMock,
+    });
+    expect(logDebugMock).toHaveBeenCalledTimes(2);
+    expect(logDebugMock).toHaveBeenCalledWith(
+      `svc-awesome-prod-doCoolThing.invoke.input`,
+      { event: exampleEvent },
+    );
+    expect(logDebugMock).toHaveBeenCalledWith(
+      `svc-awesome-prod-doCoolThing.invoke.output`,
+      { result: null },
+    );
+  });
 });

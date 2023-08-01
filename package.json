@@ -49,6 +49,7 @@
     "postinstall": "[ -d .git ] && npx husky install || exit 0"
   },
   "dependencies": {
+    "aws-sdk": "^2.1426.0",
     "simple-in-memory-cache": "^0.3.1",
     "with-simple-caching": "^0.11.3"
   },
@@ -61,7 +62,6 @@
     "@types/jest": "29.2.4",
     "@typescript-eslint/eslint-plugin": "5.46.1",
     "@typescript-eslint/parser": "5.46.1",
-    "aws-sdk": "^2.1424.0",
     "core-js": "3.26.1",
     "cz-conventional-changelog": "3.3.0",
     "declapract": "^0.11.2",

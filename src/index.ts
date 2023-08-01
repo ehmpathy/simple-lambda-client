@@ -1,2 +1,3 @@
 export { UnsuccessfulStatusCodeError, LambdaInvocationError } from './errors';
-export { invokeLambdaFunction, LogMethod } from './invokeLambdaFunction';
+export { invokeLambdaFunction } from './invokeLambdaFunction';
+export { LogMethod } from './executeLambdaInvocation';

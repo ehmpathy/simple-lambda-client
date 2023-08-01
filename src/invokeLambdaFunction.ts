@@ -5,7 +5,7 @@ import {
   withSimpleCachingAsync,
 } from 'with-simple-caching';
 
-import { executeLambdaInvocation } from './executeLambdaInvocation';
+import { LogMethod, executeLambdaInvocation } from './executeLambdaInvocation';
 
 /**
  * create a global synchronous cache that can be used to dedupe parallel requests infront of the async cache
@@ -16,8 +16,6 @@ import { executeLambdaInvocation } from './executeLambdaInvocation';
  * - this is safe to do globally as, fortunately, the inputs to the `invokeLambdaFunction` method already make each request globally unique :)
  */
 const globalSyncCache = createCache();
-
-export type LogMethod = (message: string, metadata: any) => void;
 
 /**
  * a method to invoke a lambda function with best practices
@@ -37,8 +35,7 @@ export const invokeLambdaFunction = async <O = any, I = any>({
   logDebug?: LogMethod;
   cache?: SimpleCache<O>;
 }): Promise<O> => {
-  if (logDebug)
-    logDebug(`${serviceName}-${stage}-${functionName}.invoke.input`, { event });
+  // define how to execute the lambda, based on whether caching was requested
   const execute = cache
     ? withSimpleCaching(
         withSimpleCachingAsync(executeLambdaInvocation, {
@@ -49,15 +46,16 @@ export const invokeLambdaFunction = async <O = any, I = any>({
         },
       )
     : executeLambdaInvocation;
+
+  // execute the lambda
   const result = await execute({
     serviceName,
     stage,
     functionName,
     event,
+    logDebug,
   });
-  if (logDebug)
-    logDebug(`${serviceName}-${stage}-${functionName}.invoke.output`, {
-      result,
-    });
+
+  // return the result
   return result;
 };
