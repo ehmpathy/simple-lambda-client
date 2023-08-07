@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.1](https://github.com/ehmpathy/simple-lambda-client/compare/v2.3.0...v2.3.1) (2023-08-07)
+
+
+### Bug Fixes
+
+* **cache:** serialize the async cache key correctly ([d211e9c](https://github.com/ehmpathy/simple-lambda-client/commit/d211e9c146fbed556b94e366c4da342f01c4fd9d))
+
 ## [2.3.0](https://github.com/ehmpathy/simple-lambda-client/compare/v2.2.3...v2.3.0) (2023-08-07)
 
 
