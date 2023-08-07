@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/ehmpathy/simple-lambda-client/compare/v2.2.3...v2.3.0) (2023-08-07)
+
+
+### Features
+
+* **cache:** expose getSimpleLambdaClientCacheKey method ([7b09bf2](https://github.com/ehmpathy/simple-lambda-client/commit/7b09bf2ee2c2f363174186887fca780874bcbaf0))
+
 ## [2.2.3](https://github.com/ehmpathy/simple-lambda-client/compare/v2.2.2...v2.2.3) (2023-08-01)
 
 
