@@ -5,6 +5,7 @@ import {
   withSimpleCachingAsync,
 } from 'with-simple-caching';
 
+import { getSimpleLambdaClientCacheKey } from './cache/getSimpleLambdaClientCacheKey';
 import { LogMethod, executeLambdaInvocation } from './executeLambdaInvocation';
 
 /**
@@ -43,6 +44,15 @@ export const invokeLambdaFunction = async <O = any, I = any>({
         }),
         {
           cache: globalSyncCache, // dedupe parallel requests in-memory on same machine (details on why this is required is available on the definition of the globalSyncCache const)
+          serialize: {
+            key: ({ forInput: [input] }) =>
+              getSimpleLambdaClientCacheKey({
+                service: input.serviceName,
+                function: input.functionName,
+                stage: input.stage,
+                event: input.event,
+              }),
+          },
         },
       )
     : executeLambdaInvocation;
