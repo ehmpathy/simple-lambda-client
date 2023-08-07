@@ -41,9 +41,6 @@ export const invokeLambdaFunction = async <O = any, I = any>({
     ? withSimpleCaching(
         withSimpleCachingAsync(executeLambdaInvocation, {
           cache, // dedupe requests across time and machines, with the user's input cache
-        }),
-        {
-          cache: globalSyncCache, // dedupe parallel requests in-memory on same machine (details on why this is required is available on the definition of the globalSyncCache const)
           serialize: {
             key: ({ forInput: [input] }) =>
               getSimpleLambdaClientCacheKey({
@@ -53,6 +50,9 @@ export const invokeLambdaFunction = async <O = any, I = any>({
                 event: input.event,
               }),
           },
+        }),
+        {
+          cache: globalSyncCache, // dedupe parallel requests in-memory on same machine (details on why this is required is available on the definition of the globalSyncCache const)
         },
       )
     : executeLambdaInvocation;
