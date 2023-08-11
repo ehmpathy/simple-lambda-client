@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2](https://github.com/ehmpathy/simple-lambda-client/compare/v2.3.1...v2.3.2) (2023-08-11)
+
+
+### Bug Fixes
+
+* **cache:** use with-simple-caching deduplication cache for parallel requests ([#23](https://github.com/ehmpathy/simple-lambda-client/issues/23)) ([f834662](https://github.com/ehmpathy/simple-lambda-client/commit/f834662d7be6cd65fd7a2318d08d19e4658b215d))
+
 ## [2.3.1](https://github.com/ehmpathy/simple-lambda-client/compare/v2.3.0...v2.3.1) (2023-08-07)
 
 
