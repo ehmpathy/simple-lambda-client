@@ -12,7 +12,7 @@ import { LogMethod, executeLambdaInvocation } from './executeLambdaInvocation';
  * - this is passed in as an input to the wrapper
  */
 const globalSyncCache = createCache({
-  defaultSecondsUntilExpiration: 15 * 60, // per instructions in with-simple-caching, this must be as long as the longest promise duration
+  expiration: { seconds: 15 }, // per instructions in with-simple-caching, this must be as long as the longest promise duration
 });
 
 /**
