@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.4](https://github.com/ehmpathy/simple-lambda-client/compare/v2.3.3...v2.3.4) (2024-12-31)
+
+
+### Bug Fixes
+
+* **practs:** bump to latest best ([d26f0b9](https://github.com/ehmpathy/simple-lambda-client/commit/d26f0b9f20848e491c45004150f0e8658ef58562))
+
 ## [2.3.3](https://github.com/ehmpathy/simple-lambda-client/compare/v2.3.2...v2.3.3) (2024-12-31)
 
 
