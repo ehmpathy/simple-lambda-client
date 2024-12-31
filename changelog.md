@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.3](https://github.com/ehmpathy/simple-lambda-client/compare/v2.3.2...v2.3.3) (2024-12-31)
+
+
+### Bug Fixes
+
+* **deps:** bump to latest shape of simple caches ([d7b33da](https://github.com/ehmpathy/simple-lambda-client/commit/d7b33daff441d331f59c42efcbdbb2577817eb98))
+
 ## [2.3.2](https://github.com/ehmpathy/simple-lambda-client/compare/v2.3.1...v2.3.2) (2023-08-11)
 
 
