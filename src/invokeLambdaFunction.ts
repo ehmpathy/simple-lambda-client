@@ -1,8 +1,11 @@
 import { createCache } from 'simple-in-memory-cache';
-import { SimpleCache, withSimpleCacheAsync } from 'with-simple-cache';
+import { type SimpleCache, withSimpleCacheAsync } from 'with-simple-cache';
 
 import { getSimpleLambdaClientCacheKey } from './cache/getSimpleLambdaClientCacheKey';
-import { LogMethod, executeLambdaInvocation } from './executeLambdaInvocation';
+import {
+  executeLambdaInvocation,
+  type LogMethod,
+} from './executeLambdaInvocation';
 
 /**
  * create a global synchronous cache that can be used to dedupe parallel requests infront of the async cache

@@ -1,6 +1,6 @@
 import { Lambda } from 'aws-sdk';
 
-import { UnsuccessfulStatusCodeError, LambdaInvocationError } from './errors';
+import { LambdaInvocationError, UnsuccessfulStatusCodeError } from './errors';
 
 const lambda = new Lambda();
 
@@ -47,7 +47,7 @@ export const executeLambdaInvocation = async ({
     });
 
   // attempt to parse the response into object
-  let payload;
+  let payload: any;
   try {
     payload = JSON.parse(response.Payload as string);
   } catch (error) {

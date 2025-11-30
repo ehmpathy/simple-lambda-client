@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-import { testIfNotCicd } from './__test_utils__/testIfNotCicd';
+import { testIfNotCicd } from './.test/assets/testIfNotCicd';
 import { invokeLambdaFunction } from './invokeLambdaFunction';
 
 // load environmental variables from .env

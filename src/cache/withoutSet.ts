@@ -1,4 +1,4 @@
-import { SimpleCache } from 'with-simple-cache';
+import type { SimpleCache } from 'with-simple-cache';
 
 /**
  * disable the `.set` functionality of a cache
@@ -12,4 +12,4 @@ export const withoutSet = <T>(cache: SimpleCache<T>): SimpleCache<T> =>
   ({
     ...cache,
     set: (() => {}) as SimpleCache<T>['set'],
-  } as SimpleCache<T>);
+  }) as SimpleCache<T>;
