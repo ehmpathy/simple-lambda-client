@@ -26,7 +26,9 @@ describe('createLambdaServiceClient', () => {
     it('should use the cache if passed in', async () => {
       const exampleStore: Record<string, any> = {};
       const cacheGetMock = jest.fn((key) => exampleStore[key]);
-      const cacheSetMock = jest.fn((key, value) => (exampleStore[key] = value));
+      const cacheSetMock = jest.fn((key, value) => {
+        exampleStore[key] = value;
+      });
       const exampleEvent = '__EVENT__';
       await invokeLambdaFunction({
         service: 'svc-awesome',
@@ -41,7 +43,9 @@ describe('createLambdaServiceClient', () => {
     it('should dedupe parallel requests if cache is passed in', async () => {
       const exampleStore: Record<string, any> = {};
       const cacheGetMock = jest.fn((key) => exampleStore[key]);
-      const cacheSetMock = jest.fn((key, value) => (exampleStore[key] = value));
+      const cacheSetMock = jest.fn((key, value) => {
+        exampleStore[key] = value;
+      });
       const exampleEvent = '__EVENT__';
       await Promise.all([
         invokeLambdaFunction({

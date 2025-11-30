@@ -1,4 +1,4 @@
-import { sha256 } from 'cross-sha256';
+import { asHashSha256Sync } from 'hash-fns';
 
 /**
  * defines the uri-safe cache key used by simple-lambda-client requests with-simple-caching
@@ -22,13 +22,11 @@ export const getSimpleLambdaClientCacheKey = ({
   // define a human readable part, to help with observability
   const humanPart = idealKey
     .replace(/:/g, '.')
-    .replace(/[^\w\-\_\.]/g, '')
+    .replace(/[^\w\-_.]/g, '')
     .replace(/\.\./g, '.');
 
   // define a unique part, to guarantee uniqueness
-  const uniquePart = new sha256()
-    .update(JSON.stringify(idealKey))
-    .digest('hex');
+  const uniquePart = asHashSha256Sync(JSON.stringify(idealKey));
 
   // join the parts for the full key
   return [humanPart, uniquePart].join('.');
