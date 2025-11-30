@@ -1,5 +1,5 @@
 import { createCache } from 'simple-in-memory-cache';
-import { SimpleCache, withSimpleCachingAsync } from 'with-simple-caching';
+import { SimpleCache, withSimpleCacheAsync } from 'with-simple-cache';
 
 import { getSimpleLambdaClientCacheKey } from './cache/getSimpleLambdaClientCacheKey';
 import { LogMethod, executeLambdaInvocation } from './executeLambdaInvocation';
@@ -35,10 +35,10 @@ export const invokeLambdaFunction = async <O = any, I = any>({
 }): Promise<O> => {
   // define how to execute the lambda, based on whether caching was requested
   const execute = cache
-    ? withSimpleCachingAsync(executeLambdaInvocation, {
+    ? withSimpleCacheAsync(executeLambdaInvocation, {
         cache: { output: cache, deduplication: globalSyncCache },
         serialize: {
-          key: ({ forInput: [input] }) =>
+          key: (input) =>
             getSimpleLambdaClientCacheKey({
               service: input.serviceName,
               function: input.functionName,

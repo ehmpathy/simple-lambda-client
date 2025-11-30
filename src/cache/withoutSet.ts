@@ -1,4 +1,4 @@
-import { SimpleCache } from 'with-simple-caching';
+import { SimpleCache } from 'with-simple-cache';
 
 /**
  * disable the `.set` functionality of a cache
